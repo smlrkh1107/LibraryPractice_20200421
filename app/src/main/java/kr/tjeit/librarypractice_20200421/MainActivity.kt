@@ -1,8 +1,11 @@
 package kr.tjeit.librarypractice_20200421
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
+import com.gun0912.tedpermission.PermissionListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -15,6 +18,23 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+        callBtn.setOnClickListener {
+            val permissionListener = object : PermissionListener{
+                override fun onPermissionGranted() {
+//              사용자가 권한을 승인해준 상태일 때,
+                }
+
+                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+//              사용자가 권한을 거부할 때
+                }
+            }
+
+            val uri = Uri.parse("tel:01067911107")
+            val myIntent = Intent(Intent.ACTION_CALL, uri)
+            startActivity(myIntent)
+            // 권한설정안하면 앱죽어 >> https://github.com/ParkSangGwon/TedPermission
+        }
+
 
     }
 
